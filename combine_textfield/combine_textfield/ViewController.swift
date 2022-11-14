@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         viewModel = ViewModel()
-        
+        confirmBtn.layer.cornerRadius = 10
         
         /**
          텍스트 필드에서 나가는 이벤트를
@@ -48,6 +48,7 @@ class ViewController: UIViewController {
         //버튼이 뷰모델의 퍼블리셔를 구독
         viewModel.isMatchPasswordInput
             .receive(on: RunLoop.main) // RunLoop 알아보기
+            // 여기서 구독
             .assign(to: \.isValid, on: confirmBtn)
             .store(in: &mySubscriptions)
     }
@@ -75,6 +76,7 @@ extension UIButton {
         set {
             backgroundColor = newValue ? .blue : .lightGray
             isEnabled = newValue
+            setTitleColor(newValue ? .white : .black, for: .normal)
         }
     }
 }
